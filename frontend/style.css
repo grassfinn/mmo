@@ -1,0 +1,14 @@
+:root {
+    --width: 640px;
+    --height: 360px;
+}
+
+main {
+    text-align: center;
+}
+
+canvas {
+    width: var(--width);
+    height: var(--height);
+    background-color: lightgray;
+}

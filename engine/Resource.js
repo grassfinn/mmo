@@ -3,7 +3,7 @@ class Resources {
 
         // need to download images first
         this.toLoad = {
-            player: './sprites/Onion-Sprite-Sheet.png'
+            player: './sprites/Onion-Sprite-Sheet2.png'
         }
 
         this.images = {}

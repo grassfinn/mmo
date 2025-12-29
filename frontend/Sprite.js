@@ -1,4 +1,4 @@
-import { Vector2 } from "./Vector2"
+import { Vector2 } from "./Vector2.js"
 
 export class Sprite {
     constructor({
@@ -39,5 +39,23 @@ export class Sprite {
         let frameCoordX = 0
         let frameCoordY = 0
         const frame = this.frameMap.get(this.frame)
+        if (frame) {
+            frameCoordX = frame.x
+            frameCoordY = frame.y
+        }
+        const frameSizeX = this.frameSize.x
+        const frameSizeY = this.frameSize.y
+
+        ctx.drawImage(this.resource.image,
+            frameCoordX,
+            frameCoordY,
+            frameSizeX,
+            frameSizeY,
+            x,
+            y,
+            frameSizeX * this.scale,
+            frameSizeY * this.scale
+
+        )
     }
 }

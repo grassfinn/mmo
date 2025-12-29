@@ -3,12 +3,20 @@
     --height: 360px;
 }
 
+html,
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    image-rendering: pixelated;
+}
+
 main {
     text-align: center;
 }
 
 canvas {
-    width: var(--width);
-    height: var(--height);
+    width: 100%;
+    /* height: var(--height); */
     background-color: lightgray;
 }

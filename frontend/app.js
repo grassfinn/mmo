@@ -1,84 +1,45 @@
 import { GameLoop } from "../engine/GameLoop.js";
+import { GameObject } from "../engine/GameObject.js";
 import { Input } from "../engine/Input.js";
 import { Physics } from "../engine/Physics.js";
 import { resources } from "../engine/Resource.js";
 import { Sprite } from "../engine/Sprite.js";
 import { Vector2 } from "../engine/Vector2.js";
-
-
+import { Player } from "./player/Player.js";
 
 const dimensions = {
     width: 640,
     height: 360
 }
-
+// Canvas
 const canvas = document.querySelector('canvas');
 canvas.width = dimensions.width
 canvas.height = dimensions.height
 const ctx = canvas.getContext('2d');
-
+// Game Objects
+const mainScene = new GameObject({
+    position: new Vector2(0, 0)
+})
 const physics = new Physics()
-
 const bg = new Sprite({
     resource: resources.images.bg,
     frameSize: new Vector2(640, 360),
 })
+const player = new Player(43, 43)
+mainScene.addChild(bg)
+mainScene.addChild(player)
+mainScene.input = new Input()
+mainScene.physics = new Physics()
+mainScene.groundLevel = canvas.height - player.sprite.frameSize.y
 
-const player = new Sprite({
-    resource: resources.images.player,
-    frameSize: new Vector2(43, 43),
-    hFrames: 2,
-    vFrames: 2,
-    frame: 0,
-})
-player.position = new Vector2(43, 43 * 2)
-const playerPos = player.position
-
-
-const playground = { groundLevel: canvas.height - player.frameSize.y }
-
-const input = new Input()
-
+// Game Loop
 const gameLoop = new GameLoop(update, draw)
 gameLoop.start()
-
-console.log(player);
+// Draw
 function draw() {
-
-    bg.drawImage(ctx, 0, 0)
-    player.drawImage(ctx, playerPos.x, playerPos.y)
-
+    mainScene.draw(ctx, 0, 0)
 }
-const img = document.querySelector('img')
-img.src = player.resource.flipped
-function update() {
-    // Apply Gravity
-    physics.applyGravity(player, playground)
-    // console.log(input.direction);
-    switch (input.direction) {
-        case "ALT":
-            player.position.y -= 1 * 7
-            break
-        case "DOWN":
-            player.position.y += 1 * physics.velocity.x
-            break
-        case "LEFT":
-            player.position.x -= 1 * physics.velocity.x
-            break
-        case "RIGHT":
-            player.position.x += 1 * physics.velocity.x
-            break
-        default:
-    }
-
+// Update
+function update(delta) {
+    mainScene.stepEntry(delta, mainScene)
 }
-
-
-
-// setInterval(() => {
-//     // if (player.frame > 3){
-//     //     player.frame = 0
-//     // }
-//     // player.frame += 1
-//     draw()
-// }, 300)

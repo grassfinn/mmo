@@ -18,6 +18,7 @@ export class Sprite {
         this.scale = scale ?? 1
         this.position = position ?? new Vector2(0, 0)
         this.frameMap = new Map()
+        this.direction = 'right'
         this.buildFrameMap()
 
     }

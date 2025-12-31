@@ -3,7 +3,8 @@ class Resources {
 
         // need to download images first
         this.toLoad = {
-            player: './sprites/Onion-Sprite-Sheet2.png'
+            player: '../frontend/sprites/Onion-Sprite-Sheet2.png',
+            bg: '../frontend/sprites/bg1.png'
         }
 
         this.images = {}
@@ -15,12 +16,17 @@ class Resources {
                 image: img,
                 isLoaded: false
             }
-            img.addEventListener('load', () => this.images[key].isLoaded = true)
+            img.addEventListener('load', () => {
+                this.images[key].isLoaded = true
+
+            })
             // img.onload = () => {
             //     this.images[key].isLoaded = true
             // }
         })
+
     }
+
 }
 
 export const resources = new Resources()
